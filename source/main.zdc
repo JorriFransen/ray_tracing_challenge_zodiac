@@ -3,36 +3,36 @@
 std :: import std;
 ztest :: import ztest;
 
-// using ztest;
+using ztest;
 
 #run main();
 main :: func() -> int {
 
 
-    ztest.run_test("passing_test_1", *passing_test_1);
-    ztest.run_test("failing_test_1", *failing_test_1);
-    ztest.run_test("failing_test_2", *failing_test_2);
-    ztest.run_test("failing_test_3", *failing_test_3);
+    run_test("passing_test_1", *passing_test_1);
+    run_test("failing_test_1", *failing_test_1);
+    run_test("failing_test_2", *failing_test_2);
+    run_test("failing_test_3", *failing_test_3);
 
     return 0;
 }
 
-passing_test_1 :: func() -> ztest.Test_Result
+passing_test_1 :: func() -> Test_Result
 {
     @assert(true);
-    return ztest.Test_Result.OK;
+    return Test_Result.OK;
 }
 
-failing_test_1 :: func() -> ztest.Test_Result
+failing_test_1 :: func() -> Test_Result
 {
     @assert(true);
-    return ztest.Test_Result.FAIL;
+    return Test_Result.FAIL;
 }
 
-failing_test_2 :: func() -> ztest.Test_Result
+failing_test_2 :: func() -> Test_Result
 {
     @assert(false);
-    return ztest.Test_Result.OK;
+    return Test_Result.OK;
 }
 
 write_to_nullptr :: func() -> void {
@@ -40,12 +40,12 @@ write_to_nullptr :: func() -> void {
     <ptr = 5;
 }
 
-failing_test_3 :: func() -> ztest.Test_Result
+failing_test_3 :: func() -> Test_Result
 {
 
     // Stupid workaround for now, since "entry_func" in interpreter_start cannot have locals.
     write_to_nullptr();
 
-    return ztest.Test_Result.OK;
+    return Test_Result.OK;
 }
 
