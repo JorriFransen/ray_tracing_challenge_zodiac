@@ -1,38 +1,49 @@
 
-
 std :: import std;
 ztest :: import ztest;
 
 using ztest;
 
-#run main();
+// #run main();
+
 main :: func() -> int {
 
 
-    run_test("passing_test_1", *passing_test_1);
-    run_test("failing_test_1", *failing_test_1);
-    run_test("failing_test_2", *failing_test_2);
-    run_test("failing_test_3", *failing_test_3);
+    t3 := make_test("failing_test_2", *failing_test_2);
+    t4 := make_test("failing_test_3", *failing_test_3);
+
+    tests := { make_test("passing_test_1", *passing_test_1),
+               make_test("failing_test_1", *failing_test_1),
+               make_test("failing_test_2", *failing_test_2),
+               make_test("failing_test_3", *failing_test_3)
+    };
+
+    suite : ZT_Test_Suite;
+    suite.name = "Suite1";
+    suite.tests = tests.data;
+    suite.test_count = tests.count;
+
+    run_test_suite(*suite);
 
     return 0;
 }
 
-passing_test_1 :: func() -> Test_Result
+passing_test_1 :: func() -> ZT_Test_Result
 {
     @assert(true);
-    return Test_Result.OK;
+    return ZT_Test_Result.OK;
 }
 
-failing_test_1 :: func() -> Test_Result
+failing_test_1 :: func() -> ZT_Test_Result
 {
     @assert(true);
-    return Test_Result.FAIL;
+    return ZT_Test_Result.FAIL;
 }
 
-failing_test_2 :: func() -> Test_Result
+failing_test_2 :: func() -> ZT_Test_Result
 {
     @assert(false);
-    return Test_Result.OK;
+    return ZT_Test_Result.OK;
 }
 
 write_to_nullptr :: func() -> void {
@@ -40,12 +51,12 @@ write_to_nullptr :: func() -> void {
     <ptr = 5;
 }
 
-failing_test_3 :: func() -> Test_Result
+failing_test_3 :: func() -> ZT_Test_Result
 {
 
     // Stupid workaround for now, since "entry_func" in interpreter_start cannot have locals.
     write_to_nullptr();
 
-    return Test_Result.OK;
+    return ZT_Test_Result.OK;
 }
 
