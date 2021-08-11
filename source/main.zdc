@@ -9,9 +9,6 @@ using ztest;
 main :: func() -> int {
 
 
-    t3 := make_test("failing_test_2", *failing_test_2);
-    t4 := make_test("failing_test_3", *failing_test_3);
-
     tests := { make_test("passing_test_1", *passing_test_1),
                make_test("failing_test_1", *failing_test_1),
                make_test("failing_test_2", *failing_test_2),
